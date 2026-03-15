@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 # ------------------------------------------------
-# PAGE CONFIG
+# PAGE CONFIGURATION
 # ------------------------------------------------
 st.set_page_config(
     page_title="Data Analytics Dashboard",
@@ -17,7 +17,20 @@ st.set_page_config(
 
 
 # ------------------------------------------------
-# LOAD CSS STYLE
+# HIDE DEFAULT STREAMLIT PAGE NAVIGATION
+# ------------------------------------------------
+st.markdown(
+    """
+    <style>
+    [data-testid="stSidebarNav"] {display: none;}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ------------------------------------------------
+# LOAD CUSTOM CSS
 # ------------------------------------------------
 def load_css():
     css_file = Path("assets/style.css")
@@ -33,29 +46,33 @@ load_css()
 # SAMPLE DATA
 # ------------------------------------------------
 @st.cache_data
-def sample_data() -> pd.DataFrame:
-    return pd.DataFrame(
-        {
-            "Name": ["Alice", "Bob", "Charlie"],
-            "Age": [25, 30, 35],
-            "City": ["New York", "Los Angeles", "Chicago"],
-            "Sales": [150, 200, 250],
-            "Expenses": [100, 150, 200],
-        }
-    )
+def sample_data():
+    data = {
+        "Name": ["Alice", "Bob", "Charlie"],
+        "Age": [25, 30, 35],
+        "City": ["New York", "Los Angeles", "Chicago"],
+        "Sales": [150, 200, 250],
+        "Expenses": [100, 150, 200],
+    }
+
+    df = pd.DataFrame(data)
+    df["Profit"] = df["Sales"] - df["Expenses"]
+
+    return df
 
 
 # ------------------------------------------------
-# LOAD ML MODEL
+# LOAD MACHINE LEARNING MODEL
 # ------------------------------------------------
-def load_model(path: str):
+def load_model(path):
     try:
         with open(path, "rb") as f:
             return pickle.load(f)
     except FileNotFoundError:
-        st.warning(f"Model file not found: {path}")
+        st.warning("Model file not found.")
     except Exception as e:
-        st.warning(f"Unable to load model: {e}")
+        st.warning(f"Error loading model: {e}")
+
     return None
 
 
@@ -67,13 +84,12 @@ st.sidebar.title("Analytics Dashboard")
 page = st.sidebar.radio(
     "Navigate",
     ["Overview", "Data Explorer", "Species Prediction", "About"],
-    index=0,
 )
 
 
-# ------------------------------------------------
+# =================================================
 # OVERVIEW PAGE
-# ------------------------------------------------
+# =================================================
 if page == "Overview":
 
     st.title("Welcome")
@@ -92,15 +108,15 @@ if page == "Overview":
 
         st.markdown(
             """
-            - Uses **Streamlit modern layout**
-            - Sidebar navigation
-            - Interactive forms
-            - Data visualization
-            - Machine learning prediction demo
-            """
+• Uses **Streamlit modern layout**  
+• Sidebar navigation  
+• Interactive forms  
+• Data visualization  
+• Machine learning prediction demo
+"""
         )
 
-    with st.form("user_profile", clear_on_submit=False):
+    with st.form("user_profile"):
 
         st.subheader("Tell us about yourself")
 
@@ -113,7 +129,7 @@ if page == "Overview":
             value=st.session_state.get("age", 25),
         )
 
-        gender = st.radio("Gender", ["Male", "Female", "Other"], index=0)
+        gender = st.radio("Gender", ["Male", "Female", "Other"])
 
         hobbies = st.multiselect(
             "Hobbies",
@@ -129,24 +145,26 @@ if page == "Overview":
             st.session_state.gender = gender
             st.session_state.hobbies = hobbies
 
-            st.success("Your preferences were saved.")
+            st.success("Preferences saved successfully.")
 
     if st.session_state.get("name"):
         st.info(f"Hello {st.session_state.name}! Thanks for visiting.")
 
 
-# ------------------------------------------------
-# DATA EXPLORER
-# ------------------------------------------------
+# =================================================
+# DATA EXPLORER PAGE
+# =================================================
 elif page == "Data Explorer":
 
-    st.title("Sample Data")
+    st.title("Data Explorer")
 
     df = sample_data()
 
+    st.subheader("Dataset")
+
     st.data_editor(df, use_container_width=True)
 
-    st.markdown("### Charts")
+    st.subheader("Charts")
 
     col1, col2 = st.columns(2)
 
@@ -154,85 +172,140 @@ elif page == "Data Explorer":
     col2.bar_chart(df["Expenses"])
 
 
-# ------------------------------------------------
-# IRIS PREDICTION PAGE
-# ------------------------------------------------
+# =================================================
+# SPECIES PREDICTION PAGE
+# =================================================
 elif page == "Species Prediction":
 
-    st.title("Iris Species Predictor")
+    st.title("Species Prediction")
 
     model = load_model(Path("models/dt_model.pkl"))
 
     if model is None:
 
-        st.error("Model not found. Add `dt_model.pkl` to the models folder.")
+        st.error("Model not found. Please add 'dt_model.pkl' inside the models folder.")
 
     else:
 
-        with st.form("iris_form"):
+        with st.form("prediction_form"):
 
-            st.subheader("Enter measurements")
+            st.subheader("Enter Flower Measurements")
 
             col1, col2 = st.columns(2)
 
-            sepal_length = col1.number_input(
-                "Sepal length (cm)", 0.0, 10.0, 5.0
-            )
+            with col1:
+                sepal_length = st.number_input("Sepal Length (cm)", 0.0, 10.0, 5.0)
+                petal_length = st.number_input("Petal Length (cm)", 0.0, 10.0, 1.0)
 
-            sepal_width = col2.number_input(
-                "Sepal width (cm)", 0.0, 10.0, 3.0
-            )
+            with col2:
+                sepal_width = st.number_input("Sepal Width (cm)", 0.0, 10.0, 3.0)
+                petal_width = st.number_input("Petal Width (cm)", 0.0, 10.0, 0.2)
 
-            petal_length = col1.number_input(
-                "Petal length (cm)", 0.0, 10.0, 1.0
-            )
-
-            petal_width = col2.number_input(
-                "Petal width (cm)", 0.0, 10.0, 0.2
-            )
-
-            submitted = st.form_submit_button("Predict")
+            submitted = st.form_submit_button("Predict Species")
 
         if submitted:
 
-            X = np.array(
-                [[sepal_length, sepal_width, petal_length, petal_width]]
-            )
+            X = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
 
             prediction = model.predict(X)
 
             species = ["Setosa", "Versicolor", "Virginica"]
 
-            st.success(
-                f"Predicted species: **{species[int(prediction[0])] }**"
-            )
+            predicted = species[int(prediction[0])]
+
+            st.success(f"Predicted Species: **{predicted}**")
 
 
-# ------------------------------------------------
+# =================================================
 # ABOUT PAGE
-# ------------------------------------------------
+# =================================================
 elif page == "About":
 
     st.title("About")
 
     st.write(
-        "This modern Streamlit application demonstrates a clean dashboard structure, sidebar navigation, and machine learning inference."
+        """
+This **Analytics Dashboard** demonstrates how **data visualization and machine learning models**
+can be deployed using **Streamlit**.
+"""
     )
+
+    st.subheader("Features")
 
     st.markdown(
         """
-        **Features**
+• Interactive analytics dashboard  
+• Data exploration tools  
+• Visualization charts  
+• Machine learning prediction  
+• Modern UI styling
+"""
+    )
 
-        - Interactive analytics dashboard
-        - Data exploration tools
-        - Visualization charts
-        - Machine learning prediction
-        - Modern UI styling
+    st.subheader("Technology Stack")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown(
+            """
+**Framework**
+- Streamlit
+
+**Language**
+- Python
+"""
+        )
+
+    with col2:
+        st.markdown(
+            """
+**Libraries**
+- Pandas
+- NumPy
+- Scikit-learn
+"""
+        )
+
+    st.subheader("Machine Learning Model")
+
+    st.markdown(
         """
+The project uses the **Iris dataset** to predict flower species.
+
+Input features:
+
+- Sepal Length
+- Sepal Width
+- Petal Length
+- Petal Width
+
+Predicted classes:
+
+- Setosa
+- Versicolor
+- Virginica
+"""
+    )
+
+    st.subheader("Author")
+
+    st.markdown(
+        """
+**Muhammed Faris T M**
+
+Data Science • Analytics • Machine Learning
+"""
+    )
+
+    st.subheader("Connect")
+
+    st.markdown(
+        """
+LinkedIn  
+http://www.linkedin.com/in/muhammed-faris-tm-ab1233196
+"""
     )
 
     st.write("---")
-
-    st.caption(
-        "Tip: You can add more pages by extending the sidebar navigation."
-    )
+    st.caption("Built with Streamlit • Analytics Dashboard")

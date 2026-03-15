@@ -1,14 +1,38 @@
 /* ------------------------------------------------
-GLOBAL FONT
+IMPORT GOOGLE FONTS
+------------------------------------------------ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Material icons fix (prevents text like keyboard_double_arrow_left) */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+
+/* ------------------------------------------------
+GLOBAL VARIABLES
 ------------------------------------------------ */
 
 :root {
-    --main-font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --main-font: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+
     --bg-color: #0b1220;
     --sidebar-bg: #0d1a2b;
     --card-bg: #121b2e;
+
     --accent-color: #4f8cff;
+    --accent-hover: #3a6fd9;
+
     --text-color: #f1f5f9;
+    --border-color: rgba(255,255,255,0.08);
+}
+
+
+/* ------------------------------------------------
+GLOBAL FONT APPLICATION
+------------------------------------------------ */
+
+html, body, [class*="css"] {
+    font-family: var(--main-font);
 }
 
 
@@ -20,7 +44,6 @@ body,
 [data-testid="stAppViewContainer"] {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: var(--main-font);
 }
 
 
@@ -30,13 +53,11 @@ SIDEBAR
 
 [data-testid="stSidebar"] {
     background-color: var(--sidebar-bg);
-    border-right: 1px solid rgba(255,255,255,0.05);
+    border-right: 1px solid var(--border-color);
 }
 
-[data-testid="stSidebar"] h1,
-[data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3 {
-    color: white;
+[data-testid="stSidebar"] * {
+    font-family: var(--main-font);
 }
 
 
@@ -44,8 +65,18 @@ SIDEBAR
 HEADERS
 ------------------------------------------------ */
 
-h1, h2, h3, h4 {
+h1 {
+    font-size: 34px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 26px;
     font-weight: 600;
+}
+
+h3, h4 {
+    font-weight: 500;
     letter-spacing: 0.3px;
 }
 
@@ -57,8 +88,8 @@ METRIC CARDS
 [data-testid="stMetric"] {
     background: var(--card-bg);
     padding: 18px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
 }
 
 
@@ -72,24 +103,38 @@ BUTTONS
     background-color: var(--accent-color);
     color: white;
     font-weight: 500;
-    padding: 0.5rem 1rem;
-    transition: 0.2s;
+    padding: 0.55rem 1.1rem;
+    transition: all 0.2s ease;
 }
 
 .stButton > button:hover {
-    background-color: #3a6fd9;
+    background-color: var(--accent-hover);
 }
 
 
 /* ------------------------------------------------
-INPUT BOXES
+FORM BUTTON
 ------------------------------------------------ */
+
+.stForm button {
+    border-radius: 8px;
+}
+
+
+/* ------------------------------------------------
+INPUT FIELDS
+------------------------------------------------ */
+
+input, textarea, select {
+    font-family: var(--main-font) !important;
+}
 
 .stTextInput input,
 .stNumberInput input,
 .stSelectbox div,
-.stMultiSelect div {
-    border-radius: 6px;
+.stMultiSelect div,
+.stSlider div {
+    border-radius: 8px;
 }
 
 
@@ -98,8 +143,19 @@ TABLES
 ------------------------------------------------ */
 
 [data-testid="stDataFrame"] {
-    border-radius: 10px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
     overflow: hidden;
+}
+
+
+/* ------------------------------------------------
+DATA EDITOR
+------------------------------------------------ */
+
+[data-testid="stDataEditor"] {
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
 }
 
 
@@ -122,6 +178,18 @@ DOWNLOAD BUTTON
 
 
 /* ------------------------------------------------
+CHART CONTAINER
+------------------------------------------------ */
+
+[data-testid="stPlotlyChart"],
+[data-testid="stVegaLiteChart"] {
+    background: var(--card-bg);
+    padding: 12px;
+    border-radius: 10px;
+}
+
+
+/* ------------------------------------------------
 SCROLLBAR
 ------------------------------------------------ */
 
@@ -130,20 +198,45 @@ SCROLLBAR
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #3a6fd9;
-    border-radius: 4px;
+    background: var(--accent-color);
+    border-radius: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #0b1220;
+    background: var(--bg-color);
 }
 
 
 /* ------------------------------------------------
-CONTAINER SPACING
+MAIN CONTAINER SPACING
 ------------------------------------------------ */
 
 .block-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
+}
+
+
+/* ------------------------------------------------
+ALERT BOX
+------------------------------------------------ */
+
+.stAlert {
+    border-radius: 10px;
+}
+
+/* ------------------------------------------------
+HIDE STREAMLIT SIDEBAR TOGGLE BUTTON (removes
+keyboard_double_arrow_left tooltip/text)
+------------------------------------------------ */
+
+[data-testid="stSidebarCollapseButton"],
+[data-testid="collapsedControl"],
+button[kind="header"] {
+    display: none !important;
+}
+
+/* Also hide any tooltip container just in case */
+[data-baseweb="tooltip"] {
+    display: none !important;
 }

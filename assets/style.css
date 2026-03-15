@@ -1,0 +1,149 @@
+/* ------------------------------------------------
+GLOBAL FONT
+------------------------------------------------ */
+
+:root {
+    --main-font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --bg-color: #0b1220;
+    --sidebar-bg: #0d1a2b;
+    --card-bg: #121b2e;
+    --accent-color: #4f8cff;
+    --text-color: #f1f5f9;
+}
+
+
+/* ------------------------------------------------
+APP BACKGROUND
+------------------------------------------------ */
+
+body,
+[data-testid="stAppViewContainer"] {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--main-font);
+}
+
+
+/* ------------------------------------------------
+SIDEBAR
+------------------------------------------------ */
+
+[data-testid="stSidebar"] {
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: white;
+}
+
+
+/* ------------------------------------------------
+HEADERS
+------------------------------------------------ */
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+
+/* ------------------------------------------------
+METRIC CARDS
+------------------------------------------------ */
+
+[data-testid="stMetric"] {
+    background: var(--card-bg);
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+
+/* ------------------------------------------------
+BUTTONS
+------------------------------------------------ */
+
+.stButton > button {
+    border-radius: 8px;
+    border: none;
+    background-color: var(--accent-color);
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: 0.2s;
+}
+
+.stButton > button:hover {
+    background-color: #3a6fd9;
+}
+
+
+/* ------------------------------------------------
+INPUT BOXES
+------------------------------------------------ */
+
+.stTextInput input,
+.stNumberInput input,
+.stSelectbox div,
+.stMultiSelect div {
+    border-radius: 6px;
+}
+
+
+/* ------------------------------------------------
+TABLES
+------------------------------------------------ */
+
+[data-testid="stDataFrame"] {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+/* ------------------------------------------------
+EXPANDER
+------------------------------------------------ */
+
+.streamlit-expanderHeader {
+    font-weight: 500;
+}
+
+
+/* ------------------------------------------------
+DOWNLOAD BUTTON
+------------------------------------------------ */
+
+.stDownloadButton button {
+    border-radius: 8px;
+}
+
+
+/* ------------------------------------------------
+SCROLLBAR
+------------------------------------------------ */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3a6fd9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0b1220;
+}
+
+
+/* ------------------------------------------------
+CONTAINER SPACING
+------------------------------------------------ */
+
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}

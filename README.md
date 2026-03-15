@@ -14,7 +14,7 @@ This project shows how **Python, Streamlit, and Machine Learning** can be combin
 # Live Application
 
 🔗 **Streamlit App**  
-[https://fcbkbfc438.streamlit.app/](https://app-data-analytics-dashboard-aif6mmllrvwyeqs7udgf5t.streamlit.app/)
+https://app-data-analytics-dashboard-aif6mmllrvwyeqs7udgf5t.streamlit.app/
 
 ---
 

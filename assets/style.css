@@ -1,26 +1,27 @@
 /* ------------------------------------------------
-IMPORT GOOGLE FONTS
+IMPORT GOOGLE FONT
 ------------------------------------------------ */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 
 /* ------------------------------------------------
 GLOBAL VARIABLES
 ------------------------------------------------ */
 
-:root {
-    --main-font: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+:root{
 
-    --bg-color: #0b1220;
-    --sidebar-bg: #0d1a2b;
-    --card-bg: #121b2e;
+    --main-font:"Poppins",system-ui,-apple-system,sans-serif;
 
-    --accent-color: #4f8cff;
-    --accent-hover: #3a6fd9;
+    --bg-color:#0b1220;
+    --sidebar-bg:#0d1a2b;
+    --card-bg:#121b2e;
 
-    --text-color: #f1f5f9;
-    --border-color: rgba(255,255,255,0.08);
+    --accent:#4f8cff;
+    --accent-hover:#3a6fd9;
+
+    --text:#f1f5f9;
+    --border:rgba(255,255,255,0.08);
 }
 
 
@@ -28,8 +29,9 @@ GLOBAL VARIABLES
 GLOBAL FONT
 ------------------------------------------------ */
 
-html, body {
-    font-family: var(--main-font);
+html, body, [class*="css"]{
+
+    font-family:var(--main-font);
 }
 
 
@@ -37,9 +39,10 @@ html, body {
 APP BACKGROUND
 ------------------------------------------------ */
 
-[data-testid="stAppViewContainer"] {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+[data-testid="stAppViewContainer"]{
+
+    background:var(--bg-color);
+    color:var(--text);
 }
 
 
@@ -47,13 +50,35 @@ APP BACKGROUND
 SIDEBAR
 ------------------------------------------------ */
 
-[data-testid="stSidebar"] {
-    background-color: var(--sidebar-bg);
-    border-right: 1px solid var(--border-color);
+[data-testid="stSidebar"]{
+
+    background:var(--sidebar-bg);
+    border-right:1px solid var(--border);
 }
 
-[data-testid="stSidebar"] * {
-    font-family: var(--main-font);
+[data-testid="stSidebar"] *{
+
+    font-family:var(--main-font);
+}
+
+
+/* ------------------------------------------------
+REMOVE SIDEBAR COLLAPSE CONTROL
+------------------------------------------------ */
+
+[data-testid="collapsedControl"]{
+
+    display:none !important;
+}
+
+button[kind="header"]{
+
+    display:none !important;
+}
+
+header{
+
+    display:none;
 }
 
 
@@ -61,19 +86,21 @@ SIDEBAR
 HEADERS
 ------------------------------------------------ */
 
-h1 {
-    font-size: 34px;
-    font-weight: 700;
+h1{
+
+    font-size:34px;
+    font-weight:700;
 }
 
-h2 {
-    font-size: 26px;
-    font-weight: 600;
+h2{
+
+    font-size:26px;
+    font-weight:600;
 }
 
-h3, h4 {
-    font-weight: 500;
-    letter-spacing: 0.3px;
+h3{
+
+    font-weight:500;
 }
 
 
@@ -81,11 +108,16 @@ h3, h4 {
 METRIC CARDS
 ------------------------------------------------ */
 
-[data-testid="stMetric"] {
-    background: var(--card-bg);
-    padding: 18px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
+[data-testid="stMetric"]{
+
+    background:var(--card-bg);
+    padding:18px;
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+    box-shadow:0 4px 20px rgba(0,0,0,0.2);
 }
 
 
@@ -93,44 +125,45 @@ METRIC CARDS
 BUTTONS
 ------------------------------------------------ */
 
-.stButton > button {
-    border-radius: 8px;
-    border: none;
-    background-color: var(--accent-color);
-    color: white;
-    font-weight: 500;
-    padding: 0.55rem 1.1rem;
-    transition: all 0.2s ease;
+.stButton > button{
+
+    border-radius:8px;
+
+    border:none;
+
+    background:var(--accent);
+
+    color:white;
+
+    font-weight:500;
+
+    padding:0.55rem 1.1rem;
+
+    transition:all 0.2s ease;
 }
 
-.stButton > button:hover {
-    background-color: var(--accent-hover);
+.stButton > button:hover{
+
+    background:var(--accent-hover);
 }
 
 
 /* ------------------------------------------------
-FORM BUTTON
+FORM INPUTS
 ------------------------------------------------ */
 
-.stForm button {
-    border-radius: 8px;
-}
+input, textarea, select{
 
-
-/* ------------------------------------------------
-INPUT FIELDS
------------------------------------------------- */
-
-input, textarea, select {
-    font-family: var(--main-font) !important;
+    font-family:var(--main-font) !important;
 }
 
 .stTextInput input,
 .stNumberInput input,
 .stSelectbox div,
 .stMultiSelect div,
-.stSlider div {
-    border-radius: 8px;
+.stSlider div{
+
+    border-radius:8px;
 }
 
 
@@ -138,10 +171,13 @@ input, textarea, select {
 TABLES
 ------------------------------------------------ */
 
-[data-testid="stDataFrame"] {
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    overflow: hidden;
+[data-testid="stDataFrame"]{
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+    overflow:hidden;
 }
 
 
@@ -149,9 +185,11 @@ TABLES
 DATA EDITOR
 ------------------------------------------------ */
 
-[data-testid="stDataEditor"] {
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
+[data-testid="stDataEditor"]{
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
 }
 
 
@@ -159,8 +197,9 @@ DATA EDITOR
 EXPANDER
 ------------------------------------------------ */
 
-.streamlit-expanderHeader {
-    font-weight: 500;
+.streamlit-expanderHeader{
+
+    font-weight:500;
 }
 
 
@@ -168,20 +207,24 @@ EXPANDER
 DOWNLOAD BUTTON
 ------------------------------------------------ */
 
-.stDownloadButton button {
-    border-radius: 8px;
+.stDownloadButton button{
+
+    border-radius:8px;
 }
 
 
 /* ------------------------------------------------
-CHART CONTAINER
+CHART CONTAINERS
 ------------------------------------------------ */
 
 [data-testid="stPlotlyChart"],
-[data-testid="stVegaLiteChart"] {
-    background: var(--card-bg);
-    padding: 12px;
-    border-radius: 10px;
+[data-testid="stVegaLiteChart"]{
+
+    background:var(--card-bg);
+
+    padding:12px;
+
+    border-radius:10px;
 }
 
 
@@ -189,17 +232,21 @@ CHART CONTAINER
 SCROLLBAR
 ------------------------------------------------ */
 
-::-webkit-scrollbar {
-    width: 8px;
+::-webkit-scrollbar{
+
+    width:8px;
 }
 
-::-webkit-scrollbar-thumb {
-    background: var(--accent-color);
-    border-radius: 6px;
+::-webkit-scrollbar-thumb{
+
+    background:var(--accent);
+
+    border-radius:6px;
 }
 
-::-webkit-scrollbar-track {
-    background: var(--bg-color);
+::-webkit-scrollbar-track{
+
+    background:var(--bg-color);
 }
 
 
@@ -207,9 +254,11 @@ SCROLLBAR
 MAIN CONTAINER SPACING
 ------------------------------------------------ */
 
-.block-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+.block-container{
+
+    padding-top:2rem;
+
+    padding-bottom:2rem;
 }
 
 
@@ -217,19 +266,7 @@ MAIN CONTAINER SPACING
 ALERT BOX
 ------------------------------------------------ */
 
-.stAlert {
-    border-radius: 10px;
-}
+.stAlert{
 
-
-/* ------------------------------------------------
-REMOVE SIDEBAR COLLAPSE BUTTON
------------------------------------------------- */
-
-[data-testid="collapsedControl"] {
-    display: none;
-}
-
-button[kind="header"] {
-    display: none;
+    border-radius:10px;
 }

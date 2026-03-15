@@ -148,7 +148,7 @@ streamlit-dashboard
 ### Clone the repository
 
 ```
-git clone [https://github.com/Tmmfaris/StreamLit.git](https://github.com/Tmmfaris/streamlit-data-analytics-dashboard.git)
+git clone https://github.com/Tmmfaris/streamlit-data-analytics-dashboard.git
 ```
 
 ### Navigate to the project folder
